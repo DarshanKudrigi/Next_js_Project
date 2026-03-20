@@ -11,8 +11,8 @@ export default function Comments() {
       date: 'March 19, 2026',
       content: 'This platform is absolutely incredible! The user interface is so intuitive and the performance is lightning fast. Highly recommended!',
       rating: 5,
-      helpful: 124,
-    },
+      helpful: 120,
+      },
     {
       id: 2,
       author: 'Michael Chen',
@@ -62,85 +62,95 @@ export default function Comments() {
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }).map((_, i) => (
-      <span key={i} className={i < rating ? 'text-yellow-400' : 'text-gray-300'}>
+      <span key={i} className={i < rating ? 'text-white drop-shadow-lg' : 'text-white/40'}>
         ★
       </span>
     ));
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-500 to-cyan-400">
       <div className="max-w-4xl mx-auto px-4 py-12">
         
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-black text-gray-900 mb-4">💬 User Comments</h1>
-          <p className="text-xl text-indigo-600 font-semibold">See what users think about our platform</p>
-          <p className="text-gray-600 mt-2">Total Comments: <span className="font-bold text-indigo-600">{comments.length}</span></p>
+        <div className="text-center mb-16 pt-8">
+          <h1 className="text-6xl font-black bg-gradient-to-r from-white via-blue-50 to-cyan-50 bg-clip-text text-transparent mb-4 drop-shadow-lg">💬 User Comments</h1>
+          <p className="text-xl text-white font-bold drop-shadow-md">See what users think about our platform</p>
+          <p className="text-blue-100 mt-2">Total Comments: <span className="font-black text-yellow-300 text-2xl">{comments.length}</span></p>
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-3 gap-4 mb-12">
-          <div className="bg-white rounded-lg p-6 border-2 border-indigo-300 shadow-md text-center">
-            <p className="text-3xl font-black text-indigo-600">{comments.length}</p>
-            <p className="text-gray-700 font-semibold mt-1">Total Reviews</p>
+        <div className="grid grid-cols-3 gap-6 mb-12">
+          <div className="bg-gradient-to-br from-indigo-400 to-blue-500 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300 text-center border-2 border-white/30">
+            <p className="text-4xl font-black text-white">{comments.length}</p>
+            <p className="text-blue-100 font-bold mt-2">Total Reviews</p>
           </div>
-          <div className="bg-white rounded-lg p-6 border-2 border-indigo-300 shadow-md text-center">
-            <p className="text-3xl font-black text-yellow-400">★ 4.8</p>
-            <p className="text-gray-700 font-semibold mt-1">Average Rating</p>
+          <div className="bg-gradient-to-br from-yellow-300 to-orange-400 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300 text-center border-2 border-white/30">
+            <p className="text-4xl font-black text-white">★ 4.8</p>
+            <p className="text-yellow-900 font-bold mt-2">Average Rating</p>
           </div>
-          <div className="bg-white rounded-lg p-6 border-2 border-indigo-300 shadow-md text-center">
-            <p className="text-3xl font-black text-green-600">98%</p>
-            <p className="text-gray-700 font-semibold mt-1">Satisfied Users</p>
+          <div className="bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300 text-center border-2 border-white/30">
+            <p className="text-4xl font-black text-white">98%</p>
+            <p className="text-emerald-900 font-bold mt-2">Satisfied Users</p>
           </div>
         </div>
 
         {/* Comments Section */}
         <div className="space-y-6">
-          {comments.map((comment) => (
+          {comments.map((comment) => {
+            const ratingColors = {
+              5: 'from-emerald-300 to-green-400 border-emerald-300',
+              4: 'from-blue-300 to-cyan-400 border-blue-300',
+              3: 'from-yellow-300 to-orange-400 border-yellow-300',
+              2: 'from-orange-300 to-red-400 border-orange-300',
+              1: 'from-red-300 to-rose-400 border-red-300',
+            };
+            const bgGradient = ratingColors[comment.rating] || ratingColors[5];
+            return (
             <div
               key={comment.id}
-              className="bg-white rounded-xl p-8 border-2 border-indigo-200 hover:border-indigo-400 shadow-md hover:shadow-lg transition-all duration-300"
+              className={`bg-gradient-to-r ${bgGradient} rounded-2xl p-8 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-white/40 shadow-lg`}
             >
               {/* Comment Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-start gap-4">
                   <div className="text-5xl">{comment.avatar}</div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">{comment.author}</h3>
-                    <p className="text-sm text-gray-500">{comment.date}</p>
+                    <h3 className="text-2xl font-black text-white drop-shadow-md">{comment.author}</h3>
+                    <p className="text-sm text-white/80 font-semibold">{comment.date}</p>
                   </div>
                 </div>
               </div>
 
               {/* Rating */}
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-4 bg-white/20 w-fit px-3 py-1 rounded-full backdrop-blur">
                 <div className="flex gap-1 text-2xl">
                   {renderStars(comment.rating)}
                 </div>
-                <span className="text-gray-600 font-semibold">{comment.rating}/5</span>
+                <span className="text-white font-bold text-lg">{comment.rating}/5</span>
               </div>
 
               {/* Comment Content */}
-              <p className="text-gray-700 text-lg leading-relaxed mb-6 font-medium">
+              <p className="text-white text-lg leading-relaxed mb-6 font-medium drop-shadow-sm">
                 "{comment.content}"
               </p>
 
               {/* Helpful Section */}
-              <div className="flex items-center justify-between pt-4 border-t-2 border-gray-200">
-                <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-indigo-100 rounded-lg transition-all duration-300 text-gray-700 font-semibold">
+              <div className="flex items-center justify-between pt-6 border-t-2 border-white/30">
+                <button className="flex items-center gap-2 px-6 py-2 bg-white/30 hover:bg-white/50 backdrop-blur rounded-full transition-all duration-300 text-white font-bold transform hover:scale-105">
                   👍 Helpful ({comment.helpful})
                 </button>
-                <span className="text-sm text-gray-500">Comment #{comment.id}</span>
+                <span className="text-sm text-white/80 font-semibold">Comment #{comment.id}</span>
               </div>
             </div>
-          ))}
+          );
+          })}
         </div>
 
         {/* Load More Section */}
-        <div className="text-center mt-12">
-          <button className="px-10 py-4 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white font-bold text-lg rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-            Load More Comments
+        <div className="text-center mt-16 pb-8">
+          <button className="px-12 py-4 bg-white/25 hover:bg-white/40 backdrop-blur-md text-white font-black text-xl rounded-full transition-all duration-300 transform hover:scale-110 shadow-2xl hover:shadow-3xl border-2 border-white">
+            ✨ Load More Comments ✨
           </button>
         </div>
 
