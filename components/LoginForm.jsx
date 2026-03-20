@@ -81,25 +81,25 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Logo & Tagline */}
       <div className="text-center space-y-1">
-        <h1 className="text-4xl font-bold text-quicksale-brand font-playfair">
+        <h1 className="text-4xl font-bold text-[#E8441A] font-playfair">
           QuickSale
         </h1>
-        <p className="text-sm text-quicksale-muted font-nunito">
+        <p className="text-sm text-[#6B7280] font-nunito">
           Shop fast. Shop smart.
         </p>
       </div>
 
       {/* Heading */}
       <div className="space-y-1 text-center">
-        <h2 className="text-3xl font-bold text-quicksale-primary font-playfair">
+        <h2 className="text-3xl font-bold text-[#1A1A1A] font-playfair">
           Welcome back
         </h2>
-        <p className="text-sm text-quicksale-muted">Log in to your account</p>
+        <p className="text-sm text-[#6B7280]">Log in to your account</p>
       </div>
 
       {/* Email Field */}
       <div className="space-y-2">
-        <label htmlFor="email" className="block text-sm font-medium text-quicksale-primary">
+        <label htmlFor="email" className="block text-sm font-medium text-[#1A1A1A]">
           Email address
         </label>
         <input
@@ -109,14 +109,14 @@ export default function LoginForm() {
           onChange={handleEmailChange}
           onBlur={() => handleFieldBlur('email')}
           placeholder="you@example.com"
-          className={`w-full px-4 py-3 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-0 ${
+          className={`w-full px-4 py-3 rounded-lg border bg-white text-[#1A1A1A] outline-none transition-all duration-200 focus:ring-2 focus:ring-offset-0 ${
             errors.email
-              ? 'border-quicksale-error focus:ring-quicksale-error'
-              : 'border-quicksale-input-border focus:border-quicksale-brand focus:ring-quicksale-brand/20'
+              ? 'border-[#DC2626] focus:border-[#DC2626] focus:ring-[#DC2626]/20'
+              : 'border-[#E0DDD8] focus:border-[#E8441A] focus:ring-[#E8441A]/20'
           }`}
         />
         {errors.email && (
-          <p className="text-sm text-quicksale-error font-medium">{errors.email}</p>
+          <p className="text-sm text-[#DC2626] font-medium">{errors.email}</p>
         )}
       </div>
 
@@ -133,7 +133,7 @@ export default function LoginForm() {
         </div>
         <a
           href="/forgot-password"
-          className="block text-right text-sm text-quicksale-brand hover:text-quicksale-brand-hover transition-colors duration-200 font-medium"
+          className="block text-right text-sm text-[#E8441A] hover:text-[#C73A15] transition-colors duration-200 font-medium"
         >
           Forgot password?
         </a>
@@ -143,7 +143,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-quicksale-brand text-white py-3 rounded-lg font-semibold text-base hover:bg-quicksale-brand-hover active:scale-[0.99] disabled:opacity-75 transition-all duration-200 flex items-center justify-center h-12"
+        className="w-full bg-[#E8441A] text-white py-3 rounded-lg font-semibold text-base hover:bg-[#C73A15] active:scale-[0.99] disabled:opacity-75 transition-all duration-200 flex items-center justify-center h-12 cursor-pointer"
       >
         {isLoading ? (
           <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -161,16 +161,16 @@ export default function LoginForm() {
 
       {/* Divider */}
       <div className="flex items-center gap-3">
-        <div className="flex-1 h-px bg-quicksale-divider" />
-        <span className="text-sm text-quicksale-muted font-nunito">or</span>
-        <div className="flex-1 h-px bg-quicksale-divider" />
+        <div className="flex-1 h-px bg-[#EEEBE6]" />
+        <span className="text-sm text-[#9CA3AF] font-nunito">or</span>
+        <div className="flex-1 h-px bg-[#EEEBE6]" />
       </div>
 
       {/* Google Button */}
       <button
         type="button"
         onClick={handleGoogleClick}
-        className="w-full bg-white border border-quicksale-input-border text-quicksale-primary py-3 rounded-lg font-medium text-base hover:bg-quicksale-bg hover:border-quicksale-muted transition-all duration-200 flex items-center justify-center gap-3"
+        className="w-full bg-white border border-[#E0DDD8] text-[#1A1A1A] py-3 rounded-lg font-medium text-base hover:bg-[#FAFAF8] hover:border-[#C0BDB8] transition-all duration-200 flex items-center justify-center gap-3"
       >
         <svg
           width="20"
@@ -200,11 +200,11 @@ export default function LoginForm() {
       </button>
 
       {/* Sign Up Link */}
-      <p className="text-center text-sm text-quicksale-muted">
+      <p className="text-center text-sm text-[#6B7280]">
         New to QuickSale?{' '}
         <a
           href="/signup"
-          className="text-quicksale-brand hover:text-quicksale-brand-hover font-semibold transition-colors duration-200"
+          className="text-[#E8441A] hover:text-[#C73A15] font-semibold transition-colors duration-200"
         >
           Sign up
         </a>
