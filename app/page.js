@@ -1,51 +1,8 @@
 'use client';
 import React from "react";
-import { useState } from 'react';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, ShoppingBag, Zap, Shield } from 'lucide-react';
+import { ShoppingBag, Zap, Shield } from 'lucide-react';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState({ email: '', password: '' });
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    if (errors.email) {
-      setErrors((prev) => ({ ...prev, email: '' }));
-    }
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    if (errors.password) {
-      setErrors((prev) => ({ ...prev, password: '' }));
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const nextErrors = { email: '', password: '' };
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!email.trim()) {
-      nextErrors.email = 'Email address is required.';
-    } else if (!emailRegex.test(email)) {
-      nextErrors.email = 'Please enter a valid email address.';
-    }
-
-    if (!password.trim()) {
-      nextErrors.password = 'Password is required.';
-    } else if (password.length < 6) {
-      nextErrors.password = 'Password must be at least 6 characters.';
-    }
-
-    setErrors(nextErrors);
-    if (!nextErrors.email && !nextErrors.password) {
-      console.log('Login payload:', { email, password });
-    }
-  };
-
   return (
     <main className="min-h-screen w-full lg:grid lg:grid-cols-2">
       {/* ── LEFT SIDE — untouched ── */}
@@ -75,7 +32,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-10 z-10 flex items-center gap-4 xl:left-14">
+        <div className="absolute bottom-8 left-10 z-10 flex items-center gap-6 xl:left-14">
           <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 text-xl font-semibold text-gray-300">
             D
           </div>
@@ -83,135 +40,45 @@ export default function LoginPage() {
         </div>
       </section>
 
-      {/* ── RIGHT SIDE — fixes applied ── */}
-      <section className="flex min-h-screen items-center justify-center bg-[#FEFCFA] px-6 py-10 sm:px-8 lg:px-12">
-        <div className="w-full max-w-105">
+   {/* ── RIGHT SIDE — Login Form ── */}
+      <section style={{ background: '#F5F2ED', minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+        <div style={{ width: '100%', maxWidth: '440px', padding: '0' }}>
 
-          {/* FIX 1: mb-0 → mb-8  adds space between "Welcome back." and Email label */}
-          <header className="mb-8">
-            <p className="text-[34px] font-semibold leading-none tracking-[-0.02em] text-[#171717] sm:text-[36px]">QuickSale</p>
-            <h2 className="mt-2 mb-0 text-[44px] font-bold leading-[1.02] tracking-[-0.03em] text-[#111111] sm:text-[52px]">
-              Welcome back.
-            </h2>
-          </header>
+          <h1 style={{ fontSize: '40px', fontWeight: '500', color: '#1a1a1a', margin: '0 0 4px 0', fontFamily: 'Georgia, serif' }}>QuickSale</h1>
 
-          <form className="space-y-6 sm:space-y-7" onSubmit={handleSubmit} noValidate>
+          <h1 style={{ fontSize: '42px', fontWeight: '700', color: '#1a1a1a', margin: '0 0 48px 0', fontFamily: "Georgia, 'Times New Roman', serif", lineHeight: '1.1' }}>Welcome back.</h1>
 
-            {/* Email field — untouched */}
-            <div className="space-y-2.5">
-              <label htmlFor="email" className="mb-2 block text-sm font-semibold text-[#111827]">
-                Email address
-              </label>
-              <div className="relative">
-                <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9CA3AF]" />
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={handleEmailChange}
-                  placeholder="you@example.com"
-                  className={`h-12 w-full rounded-xl bg-white pl-10 pr-4 text-sm leading-normal text-[#111827] placeholder:text-[#9CA3AF] shadow-[0_1px_2px_rgba(0,0,0,0.03)] outline-none transition-all duration-200 focus:ring-4 ${
-                    errors.email
-                      ? 'border border-[#DC2626] focus:border-[#DC2626] focus:ring-[#DC2626]/15'
-                      : 'border border-[#D1D5DB] focus:border-[#E8441A] focus:ring-[#E8441A]/15'
-                  }`}
-                  aria-invalid={Boolean(errors.email)}
-                  aria-describedby={errors.email ? 'email-error' : undefined}
-                />
-              </div>
-              {errors.email ? (
-                <p id="email-error" className="mt-2 text-sm text-[#DC2626]">
-                  {errors.email}
-                </p>
-              ) : null}
-            </div>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#1a1a1a', marginBottom: '8px', fontFamily: 'sans-serif' }}>Email address</label>
+          <div style={{ position: 'relative', marginBottom: '28px' }}>
+            <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '16px' }}>✉️</span>
+            
+            <input type="email" placeholder="you@example.com" style={{ width: '100%', boxSizing: 'border-box', padding: '13px 14px 13px 42px', fontSize: '15px', border: '1.5px solid #ddd', borderRadius: '10px', background: '#fff', color: '#1a1a1a', outline: 'none', fontFamily: 'sans-serif' }} />
+          </div>
 
-            {/* FIX 2: removed mb-4 from this div — space-y-6 on the form handles the gap */}
-            <div className="space-y-3">
-              <label htmlFor="password" className="mb-2 block text-sm font-semibold text-[#111827]">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9CA3AF]" />
-                <input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={handlePasswordChange}
-                  placeholder="Enter your password"
-                  className={`h-12 w-full rounded-xl bg-white pl-10 pr-10 text-sm leading-normal text-[#111827] placeholder:text-[#9CA3AF] shadow-[0_1px_2px_rgba(0,0,0,0.03)] outline-none transition-all duration-200 focus:ring-4 ${
-                    errors.password
-                      ? 'border border-[#DC2626] focus:border-[#DC2626] focus:ring-[#DC2626]/15'
-                      : 'border border-[#D1D5DB] focus:border-[#E8441A] focus:ring-[#E8441A]/15'
-                  }`}
-                  aria-invalid={Boolean(errors.password)}
-                  aria-describedby={errors.password ? 'password-error' : undefined}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] transition hover:text-[#374151]"
-                >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </button>
-              </div>
-              {errors.password ? (
-                <p id="password-error" className="mt-2 text-sm text-[#DC2626]">
-                  {errors.password}
-                </p>
-              ) : null}
-            </div>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#1a1a1a', marginBottom: '8px', fontFamily: 'sans-serif' }}>Password</label>
+          <div style={{ position: 'relative', marginBottom: '36px' }}>
+            <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '16px' }}>🔒</span>
+            <input type="password" defaultValue="mysecretpassword" style={{ width: '100%', boxSizing: 'border-box', padding: '13px 42px 13px 42px', fontSize: '15px', border: '1.5px solid #bcd0f7', borderRadius: '10px', background: '#EEF4FF', color: '#1a1a1a', outline: 'none', fontFamily: 'sans-serif' }} />
+            <span style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '16px', color: '#888' }}>👁</span>
+          </div>
 
-            {/* FIX 3: removed mt-2 — button now sits evenly spaced via space-y-6, full width already set */}
-            <button
-              type="submit"
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#E8441A] text-sm font-semibold text-white transition-all duration-200 hover:bg-[#CF3C16] focus:outline-none focus:ring-4 focus:ring-[#E8441A]/20 active:scale-[0.99]"
-            >
-              Log In
-              <ArrowRight className="h-4 w-4" />
-            </button>
+          <button style={{ width: '100%', boxSizing: 'border-box', padding: '15px', background: '#D94F2B', border: 'none', borderRadius: '10px', color: '#fff', fontSize: '16px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '20px' }}>
+            Log In <span style={{ fontSize: '18px' }}>→</span>
+          </button>
 
-            <div className="my-4 flex items-center">
-              <div className="grow border-t border-[#E5E7EB]"></div>
-              <span className="px-3 text-sm text-[#6B7280]">or continue with</span>
-              <div className="grow border-t border-[#E5E7EB]"></div>
-            </div>
+          <div style={{ textAlign: 'center', fontSize: '13px', color: '#888', marginBottom: '16px', fontFamily: 'sans-serif' }}>or continue with</div>
 
-            <button
-              type="button"
-              className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-[#D1D5DB] bg-white text-sm font-medium text-[#111827] transition-all duration-200 hover:border-[#9CA3AF] hover:bg-[#FAFAFA]"
-            >
-              <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
-                <path
-                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.01 5.01 0 0 1-2.17 3.29v2.73h3.5c2.05-1.89 3.31-4.67 3.31-8.03Z"
-                  fill="#4285F4"
-                />
-                <path
-                  d="M12 23c2.97 0 5.46-.98 7.25-2.72l-3.5-2.73c-.98.66-2.23 1.05-3.75 1.05-2.88 0-5.32-1.94-6.19-4.55H2.2v2.85A11 11 0 0 0 12 23Z"
-                  fill="#34A853"
-                />
-                <path
-                  d="M5.81 14.05A6.62 6.62 0 0 1 5.45 12c0-.71.13-1.4.36-2.05V7.1H2.2A11 11 0 0 0 1 12c0 1.77.42 3.44 1.2 4.9l3.61-2.85Z"
-                  fill="#FBBC05"
-                />
-                <path
-                  d="M12 5.4c1.62 0 3.07.56 4.22 1.66l3.16-3.16C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.2 7.1l3.61 2.85c.87-2.61 3.31-4.55 6.19-4.55Z"
-                  fill="#EA4335"
-                />
-              </svg>
-              Continue with Google
-            </button>
+          <button style={{ width: '100%', boxSizing: 'border-box', padding: '13px', background: '#fff', border: '1.5px solid #ddd', borderRadius: '10px', color: '#1a1a1a', fontSize: '15px', fontWeight: '500', cursor: 'pointer', fontFamily: 'sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '24px' }}>
+            <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.8 2.5 30.2 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6C12.4 13.2 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8C43.8 37.5 46.5 31.4 46.5 24.5z"/><path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.7l-7.8-6A23.9 23.9 0 0 0 0 24c0 3.9.9 7.5 2.6 10.7l7.9-6z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.5-5.8c-2.1 1.4-4.7 2.3-7.7 2.3-6.2 0-11.5-3.7-13.5-9l-7.9 6C6.6 42.6 14.6 48 24 48z"/></svg>
+            Continue with Google
+          </button>
 
-            <p className="pt-2 text-center text-sm text-[#6B7280]">
-              Don&apos;t have an account?{' '}
-              <a href="#" className="font-semibold text-[#111827] underline-offset-4 hover:underline">
-                Create one
-              </a>
-            </p>
-          </form>
+          <p style={{ textAlign: 'center', fontSize: '14px', color: '#888', margin: '0', fontFamily: 'sans-serif' }}>
+            Don't have an account? <span style={{ color: '#1a1a1a', fontWeight: '600', cursor: 'pointer' }}>Create one</span>
+          </p>
+
         </div>
       </section>
     </main>
   );
-}
+} 
