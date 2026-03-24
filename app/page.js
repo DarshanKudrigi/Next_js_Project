@@ -1,8 +1,10 @@
 'use client';
 import React from "react";
+import { useRouter } from "next/navigation";
 import { ShoppingBag, Zap, Shield } from 'lucide-react';
 
 export default function LoginPage() {
+  const router = useRouter();
   return (
     <main className="min-h-screen w-full lg:grid lg:grid-cols-2">
       {/* ── LEFT SIDE — untouched ── */}
@@ -74,7 +76,7 @@ export default function LoginPage() {
           </button>
 
           <p style={{ textAlign: 'center', fontSize: '14px', color: '#888', margin: '0', fontFamily: 'sans-serif' }}>
-            Don't have an account? <span style={{ color: '#1a1a1a', fontWeight: '600', cursor: 'pointer' }}>Create one</span>
+            Don't have an account? <span onClick={() => router.push("/register")} style={{ color: '#1a1a1a', fontWeight: '600', cursor: 'pointer' }}>Create one</span>
           </p>
 
         </div>
