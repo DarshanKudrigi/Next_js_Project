@@ -1,10 +1,16 @@
 'use client';
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ShoppingBag, Zap, Shield } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
+  const [isRotating, setIsRotating] = useState(false);
+
+  const handleLoginClick = () => {
+    setIsRotating(true);
+    setTimeout(() => setIsRotating(false), 1500);
+  };
   return (
     <main className="min-h-screen w-full lg:grid lg:grid-cols-2">
       {/* ── LEFT SIDE — untouched ── */}
@@ -64,8 +70,22 @@ export default function LoginPage() {
             <span style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '16px', color: '#888' }}>👁</span>
           </div>
 
-          <button style={{ width: '100%', boxSizing: 'border-box', padding: '15px', background: '#D94F2B', border: 'none', borderRadius: '10px', color: '#fff', fontSize: '16px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '20px' }}>
-            Log In <span style={{ fontSize: '18px' }}>→</span>
+          <button 
+            onClick={handleLoginClick}
+            disabled={isRotating}
+            style={{ width: '100%', boxSizing: 'border-box', padding: '15px', background: '#D94F2B', border: 'none', borderRadius: '10px', color: '#fff', fontSize: '16px', fontWeight: '600', cursor: isRotating ? 'not-allowed' : 'pointer', fontFamily: 'sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '20px', opacity: isRotating ? 0.95 : 1 }}
+            className={isRotating ? 'login-btn-loading' : ''}
+            onMouseEnter={(e) => !isRotating && (e.target.style.transform = 'scale(1.02)')}
+            onMouseLeave={(e) => !isRotating && (e.target.style.transform = 'scale(1)')}
+          >
+            {isRotating ? (
+              <span className="spinner"></span>
+            ) : (
+              <>
+                <span className="btn-text">Log In</span>
+                <span style={{ fontSize: '18px' }}>→</span>
+              </>
+            )}
           </button>
 
           <div style={{ textAlign: 'center', fontSize: '13px', color: '#888', marginBottom: '16px', fontFamily: 'sans-serif' }}>or continue with</div>

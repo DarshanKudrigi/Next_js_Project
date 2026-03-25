@@ -48,6 +48,68 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
+/* Button Loading Animation */
+@keyframes rotateSpinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes topLineSlide {
+  0% {
+    width: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.login-btn-loading {
+  position: relative;
+  overflow: visible;
+}
+
+.login-btn-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4B9EFF, #2563EB);
+  animation: topLineSlide 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  width: 100%;
+  z-index: 10;
+  border-radius: 10px 10px 0 0;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top: 2.5px solid #fff;
+  border-radius: 50%;
+  animation: rotateSpinner 1s linear infinite;
+}
+
+.btn-text {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.btn-text.hidden {
+  opacity: 0;
+  position: absolute;
+}
+
 /* Smooth transitions */
 * {
   transition-property: background-color, border-color, color, fill, stroke;
