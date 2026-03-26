@@ -13,6 +13,10 @@ export default function LoginPage() {
     setIsRotating(true);
     setTimeout(() => setIsRotating(false), 1500);
   };
+
+  const handleRegister = () => {
+    router.push("register");
+  };
   return (
     <main className="min-h-screen w-full lg:grid lg:grid-cols-2">
       <style>{`
@@ -28,8 +32,46 @@ export default function LoginPage() {
           }
         }
         
+        @keyframes googleClickBounce {
+          0% {
+            transform: scale(1);
+          }
+          25% {
+            transform: scale(0.95);
+          }
+          50% {
+            transform: scale(1.1);
+          }
+          75% {
+            transform: scale(0.98);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+        
+        @keyframes googleClickPulse {
+          0% {
+            box-shadow: 0 0 0 0 rgba(232, 68, 26, 0.4);
+          }
+          50% {
+            box-shadow: 0 0 0 8px rgba(232, 68, 26, 0.1);
+          }
+          100% {
+            box-shadow: 0 0 0 12px rgba(232, 68, 26, 0);
+          }
+        }
+        
         .google-btn-icon-animate {
           animation: googleIconBounce 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .google-btn-clicked {
+          animation: googleClickBounce 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .google-btn-pulse {
+          animation: googleClickPulse 800ms ease-out;
         }
       `}</style>
       {/* ── LEFT SIDE — untouched ── */}
@@ -112,6 +154,10 @@ export default function LoginPage() {
           <button 
             onMouseEnter={() => setGoogleHovered(true)}
             onMouseLeave={() => setGoogleHovered(false)}
+            onClick={() => {
+              setGoogleClicked(true);
+              setTimeout(() => setGoogleClicked(false), 800);
+            }}
             style={{ 
               width: '100%', 
               boxSizing: 'border-box', 
@@ -133,13 +179,14 @@ export default function LoginPage() {
               transform: googleHovered ? 'scale(1.01)' : 'scale(1)',
               boxShadow: googleHovered ? '0 4px 12px rgba(232,68,26,0.15)' : 'none'
             }}
+            className={googleClicked ? 'google-btn-clicked google-btn-pulse' : ''}
           >
             <svg 
               width="18" 
               height="18" 
               viewBox="0 0 48 48"
               className={googleHovered ? 'google-btn-icon-animate' : ''}
-              style={{ transition: 'transform 300ms ease-out' }}
+              style={{ transition: 'transform 450ms ease-in' }}
             >
               <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.8 2.5 30.2 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6C12.4 13.2 17.8 9.5 24 9.5z"/>
               <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8C43.8 37.5 46.5 31.4 46.5 24.5z"/>
@@ -150,7 +197,7 @@ export default function LoginPage() {
           </button>
 
           <p style={{ textAlign: 'center', fontSize: '14px', color: '#888', margin: '0', fontFamily: 'sans-serif' }}>
-            Don't have an account? <span onClick={() => router.push("/register")} style={{ color: '#1a1a1a', fontWeight: '600', cursor: 'pointer' }}>Create one</span>
+            Don't have an account? <span onClick={handleRegister} style={{ color: '#1a1a1a', fontWeight: '600', cursor: 'pointer' }}>Create one</span>
           </p>
 
         </div>
