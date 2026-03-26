@@ -16,7 +16,7 @@ export default function LoginPage() {
       {/* ── LEFT SIDE — untouched ── */}
       <section className="relative hidden overflow-hidden bg-linear-to-br from-[#1A1A1A] to-[#2D1A0E] lg:flex lg:min-h-screen lg:flex-col lg:justify-center lg:p-10 xl:p-14">
         <div className="relative z-10 mx-auto flex w-full max-w-140 flex-col justify-center">
-          <h1 className="max-w-115 text-[72px] font-light leading-[0.96] tracking-[-0.03em] text-[#F8F5F1] xl:text-[90px]">
+          <h1 className="max-w-115 text-[72px] font-light leading-[0.96] tracking-[-0.03em] text-[#e6dfd7] xl:text-[90px]">
             Move fast.
             <br />
             Buy smart.
