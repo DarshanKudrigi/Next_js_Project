@@ -10,6 +10,7 @@ export default function LoginForm() {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [googleButtonHovered, setGoogleButtonHovered] = useState(false);
 
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -95,30 +96,15 @@ export default function LoginForm() {
           }
         }
         
-        @keyframes googleIconPop {
-          0%, 100% {
+        @keyframes googleIconBounce {
+          0% {
             transform: scale(1) rotate(0deg);
           }
           50% {
-            transform: scale(1.15) rotate(12deg);
-          }
-        }
-        
-        @keyframes googleGlow {
-          from {
-            box-shadow: 0 0 0 0 rgba(232, 68, 26, 0.1);
-          }
-          to {
-            box-shadow: 0 0 0 8px rgba(232, 68, 26, 0);
-          }
-        }
-        
-        @keyframes googleShimmer {
-          0% {
-            background-position: -1000px 0;
+            transform: scale(1.2) rotate(15deg);
           }
           100% {
-            background-position: 1000px 0;
+            transform: scale(1) rotate(0deg);
           }
         }
         
@@ -134,16 +120,12 @@ export default function LoginForm() {
           animation: slideUp 300ms ease-out forwards;
         }
         
+        .google-button-icon-animate {
+          animation: googleIconBounce 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
         .google-button-icon {
-          transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        
-        .google-button-wrapper:hover .google-button-icon {
-          animation: googleIconPop 600ms ease-out;
-        }
-        
-        .google-button-wrapper:active .google-button-icon {
-          transform: scale(0.9);
+          transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
         }
       `}</style>
 
@@ -246,9 +228,16 @@ export default function LoginForm() {
         {/* Google Button */}
         <button
           type="button"
-          className="google-button-wrapper w-full bg-white border-2 border-[#E8E4DF] text-[#374151] font-semibold text-sm py-3.5 rounded-xl flex items-center justify-center gap-3 hover:border-[#E8441A] hover:bg-[#FFF9F6] active:scale-[0.99] hover:scale-[1.01] transition-all duration-200 shadow-sm hover:shadow-md group"
+          onMouseEnter={() => setGoogleButtonHovered(true)}
+          onMouseLeave={() => setGoogleButtonHovered(false)}
+          className="w-full bg-white border-2 border-[#E8E4DF] text-[#374151] font-semibold text-sm py-3.5 rounded-xl flex items-center justify-center gap-3 hover:border-[#E8441A] hover:bg-[#FFF9F6] active:scale-[0.99] hover:scale-[1.01] transition-all duration-200 shadow-sm hover:shadow-md group"
         >
-          <svg className="w-4 h-4 google-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg 
+            className={`w-4 h-4 google-button-icon ${googleButtonHovered ? 'google-button-icon-animate' : ''}`}
+            viewBox="0 0 24 24" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
