@@ -6,6 +6,8 @@ import { ShoppingBag, Zap, Shield } from 'lucide-react';
 export default function LoginPage() {
   const router = useRouter();
   const [isRotating, setIsRotating] = useState(false);
+  const [googleHovered, setGoogleHovered] = useState(false);
+  const [googleClicked, setGoogleClicked] = useState(false);
 
   const handleLoginClick = () => {
     setIsRotating(true);
@@ -13,6 +15,23 @@ export default function LoginPage() {
   };
   return (
     <main className="min-h-screen w-full lg:grid lg:grid-cols-2">
+      <style>{`
+        @keyframes googleIconBounce {
+          0% {
+            transform: scale(1) rotate(0deg);
+          }
+          50% {
+            transform: scale(1.2) rotate(15deg);
+          }
+          100% {
+            transform: scale(1) rotate(0deg);
+          }
+        }
+        
+        .google-btn-icon-animate {
+          animation: googleIconBounce 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+      `}</style>
       {/* ── LEFT SIDE — untouched ── */}
       <section className="relative hidden overflow-hidden bg-linear-to-br from-[#1A1A1A] to-[#2D1A0E] lg:flex lg:min-h-screen lg:flex-col lg:justify-center lg:p-10 xl:p-14">
         <div className="relative z-10 mx-auto flex w-full max-w-140 flex-col justify-center">
@@ -90,8 +109,43 @@ export default function LoginPage() {
 
           <div style={{ textAlign: 'center', fontSize: '13px', color: '#888', marginBottom: '16px', fontFamily: 'sans-serif' }}>or continue with</div>
 
-          <button style={{ width: '100%', boxSizing: 'border-box', padding: '13px', background: '#fff', border: '1.5px solid #ddd', borderRadius: '10px', color: '#1a1a1a', fontSize: '15px', fontWeight: '500', cursor: 'pointer', fontFamily: 'sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '24px' }}>
-            <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.8 2.5 30.2 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6C12.4 13.2 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8C43.8 37.5 46.5 31.4 46.5 24.5z"/><path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.7l-7.8-6A23.9 23.9 0 0 0 0 24c0 3.9.9 7.5 2.6 10.7l7.9-6z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.5-5.8c-2.1 1.4-4.7 2.3-7.7 2.3-6.2 0-11.5-3.7-13.5-9l-7.9 6C6.6 42.6 14.6 48 24 48z"/></svg>
+          <button 
+            onMouseEnter={() => setGoogleHovered(true)}
+            onMouseLeave={() => setGoogleHovered(false)}
+            style={{ 
+              width: '100%', 
+              boxSizing: 'border-box', 
+              padding: '13px', 
+              background: googleHovered ? '#FFF9F6' : '#fff', 
+              border: googleHovered ? '1.5px solid #E8441A' : '1.5px solid #ddd', 
+              borderRadius: '10px', 
+              color: googleHovered ? '#E8441A' : '#1a1a1a', 
+              fontSize: '15px', 
+              fontWeight: '600', 
+              cursor: 'pointer', 
+              fontFamily: 'sans-serif', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              gap: '10px', 
+              marginBottom: '24px',
+              transition: 'all 300ms ease-out',
+              transform: googleHovered ? 'scale(1.01)' : 'scale(1)',
+              boxShadow: googleHovered ? '0 4px 12px rgba(232,68,26,0.15)' : 'none'
+            }}
+          >
+            <svg 
+              width="18" 
+              height="18" 
+              viewBox="0 0 48 48"
+              className={googleHovered ? 'google-btn-icon-animate' : ''}
+              style={{ transition: 'transform 300ms ease-out' }}
+            >
+              <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.8 2.5 30.2 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6C12.4 13.2 17.8 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8C43.8 37.5 46.5 31.4 46.5 24.5z"/>
+              <path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.7l-7.8-6A23.9 23.9 0 0 0 0 24c0 3.9.9 7.5 2.6 10.7l7.9-6z"/>
+              <path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.5-5.8c-2.1 1.4-4.7 2.3-7.7 2.3-6.2 0-11.5-3.7-13.5-9l-7.9 6C6.6 42.6 14.6 48 24 48z"/>
+            </svg>
             Continue with Google
           </button>
 
