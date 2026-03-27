@@ -1,13 +1,14 @@
 'use client';
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShoppingBag, Zap, Shield } from 'lucide-react';
+import { ShoppingBag, Zap, Shield, Eye, EyeOff } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
   const [isRotating, setIsRotating] = useState(false);
   const [googleHovered, setGoogleHovered] = useState(false);
   const [googleClicked, setGoogleClicked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLoginClick = () => {
     setIsRotating(true);
@@ -127,8 +128,16 @@ export default function LoginPage() {
           <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#1a1a1a', marginBottom: '8px', fontFamily: 'sans-serif' }}>Password</label>
           <div style={{ position: 'relative', marginBottom: '36px' }}>
             <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '16px' }}>🔒</span>
-            <input type="password" defaultValue="mysecretpassword" style={{ width: '100%', boxSizing: 'border-box', padding: '13px 42px 13px 42px', fontSize: '15px', border: '1.5px solid #bcd0f7', borderRadius: '10px', background: '#EEF4FF', color: '#1a1a1a', outline: 'none', fontFamily: 'sans-serif' }} />
-            <span style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '16px', color: '#888' }}>👁</span>
+            <input type={showPassword ? 'text' : 'password'} placeholder="Enter your password" autoComplete="off" style={{ width: '100%', boxSizing: 'border-box', padding: '13px 42px 13px 42px', fontSize: '15px', border: '1.5px solid #ddd', borderRadius: '10px', background: '#fff', color: '#1a1a1a', outline: 'none', fontFamily: 'sans-serif' }} />
+            <button 
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', background: 'none', border: 'none', padding: '0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              onMouseEnter={(e) => e.target.querySelector('svg').style.color = '#444'}
+              onMouseLeave={(e) => e.target.querySelector('svg').style.color = '#888'}
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" style={{ color: '#888', transition: 'color 200ms ease' }} /> : <Eye className="w-4 h-4" style={{ color: '#888', transition: 'color 200ms ease' }} />}
+            </button>
           </div>
 
           <button 
