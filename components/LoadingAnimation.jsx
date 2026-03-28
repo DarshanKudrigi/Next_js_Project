@@ -1,18 +1,33 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function LoadingAnimation({ onLoadComplete }) {
+export default function LoadingAnimation() {
   const [isVisible, setIsVisible] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
+    // Check if loading has already been shown in this session
+    const loadingShown = sessionStorage.getItem('loadingAnimationShown');
+    
+    if (loadingShown) {
+      setIsVisible(false);
+      return;
+    }
+
+    // Mark that loading animation has been shown
+    sessionStorage.setItem('loadingAnimationShown', 'true');
+
+    // 5 seconds for slower, smooth animation
     const timer = setTimeout(() => {
       setIsVisible(false);
-      if (onLoadComplete) onLoadComplete();
-    }, 3000);
+      // Navigate to login page after animation completes
+      router.push('/');
+    }, 5000);
 
     return () => clearTimeout(timer);
-  }, [onLoadComplete]);
+  }, [router]);
 
   if (!isVisible) return null;
 
@@ -93,7 +108,7 @@ export default function LoadingAnimation({ onLoadComplete }) {
         }
 
         .logo-wrapper {
-          animation: fadeInDown 0.8s ease-out;
+          animation: fadeInDown 1.5s ease-out;
           margin-bottom: 10px;
         }
 
@@ -108,7 +123,7 @@ export default function LoadingAnimation({ onLoadComplete }) {
         }
 
         .tagline {
-          animation: slideInUp 0.8s ease-out 0.2s both;
+          animation: slideInUp 1.5s ease-out 0.3s both;
           font-size: 18px;
           color: #D1D5DB;
           font-family: 'Nunito', sans-serif;
@@ -118,7 +133,7 @@ export default function LoadingAnimation({ onLoadComplete }) {
         }
 
         .loading-bars-wrapper {
-          animation: scaleUp 0.6s ease-out 0.4s both;
+          animation: scaleUp 1s ease-out 0.8s both;
           margin-top: 30px;
         }
 
@@ -134,7 +149,7 @@ export default function LoadingAnimation({ onLoadComplete }) {
           width: 8px;
           background: linear-gradient(180deg, #D94F2B 0%, #e6dfd7 100%);
           border-radius: 4px;
-          animation: pulse 0.8s ease-in-out infinite;
+          animation: pulse 1.2s ease-in-out infinite;
         }
 
         .bar:nth-child(1) {
@@ -144,26 +159,26 @@ export default function LoadingAnimation({ onLoadComplete }) {
 
         .bar:nth-child(2) {
           height: 45px;
-          animation-delay: 0.1s;
+          animation-delay: 0.15s;
         }
 
         .bar:nth-child(3) {
           height: 35px;
-          animation-delay: 0.2s;
+          animation-delay: 0.3s;
         }
 
         .bar:nth-child(4) {
           height: 50px;
-          animation-delay: 0.3s;
+          animation-delay: 0.45s;
         }
 
         .bar:nth-child(5) {
           height: 40px;
-          animation-delay: 0.4s;
+          animation-delay: 0.6s;
         }
 
         .progress-bar {
-          animation: slideInUp 0.8s ease-out 0.6s both;
+          animation: slideInUp 1.5s ease-out 1.2s both;
           width: 200px;
           height: 4px;
           background: rgba(255, 255, 255, 0.1);
@@ -176,12 +191,12 @@ export default function LoadingAnimation({ onLoadComplete }) {
           height: 100%;
           background: linear-gradient(90deg, #D94F2B, #e6dfd7);
           border-radius: 2px;
-          animation: shimmer 2s ease-in-out infinite;
+          animation: shimmer 3s ease-in-out infinite;
           background-size: 200% 100%;
         }
 
         .loading-text {
-          animation: slideInUp 0.8s ease-out 0.8s both;
+          animation: slideInUp 1.5s ease-out 1.5s both;
           font-size: 13px;
           color: #888;
           font-family: 'Nunito', sans-serif;
@@ -196,7 +211,7 @@ export default function LoadingAnimation({ onLoadComplete }) {
           height: 4px;
           background: #D94F2B;
           border-radius: 50%;
-          animation: pulse 1.4s ease-in-out infinite;
+          animation: pulse 1.8s ease-in-out infinite;
           margin-left: 3px;
         }
 
@@ -205,11 +220,11 @@ export default function LoadingAnimation({ onLoadComplete }) {
         }
 
         .dot:nth-child(2) {
-          animation-delay: 0.2s;
+          animation-delay: 0.3s;
         }
 
         .dot:nth-child(3) {
-          animation-delay: 0.4s;
+          animation-delay: 0.6s;
         }
 
         .corner-accent {
