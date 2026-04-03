@@ -1,11 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function LoadingAnimation() {
   const [isVisible, setIsVisible] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     // Check if loading has already been shown in this session
@@ -19,15 +17,13 @@ export default function LoadingAnimation() {
     // Mark that loading animation has been shown
     sessionStorage.setItem('loadingAnimationShown', 'true');
 
-    // 5 seconds for slower, smooth animation
+    // 3 seconds for animation
     const timer = setTimeout(() => {
       setIsVisible(false);
-      // Navigate to login page after animation completes
-      router.push('/');
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timer);
-  }, [router]);
+  }, []);
 
   if (!isVisible) return null;
 

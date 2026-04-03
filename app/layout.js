@@ -1,7 +1,6 @@
 'use client';
 
 import { Playfair_Display, Nunito } from 'next/font/google';
-import { useEffect, useState } from 'react';
 import './globals.css';
 import LoadingAnimation from '@/components/LoadingAnimation';
 
@@ -18,17 +17,11 @@ const nunito = Nunito({
 });
 
 export default function RootLayout({ children }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <html lang="en" className={`${playfair.variable} ${nunito.variable}`}>
       <head></head>
       <body className="font-nunito">
-        {mounted && <LoadingAnimation />}
+        <LoadingAnimation />
         {children}
       </body>
     </html>
