@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function PerfectTicketDashboard() {
   // Track navbar scroll state for sticky effect
@@ -9,12 +9,67 @@ export default function PerfectTicketDashboard() {
   const [activeNav, setActiveNav] = useState('Movies');
   // Track currently selected category filter
   const [activeCategory, setActiveCategory] = useState('All');
+  // Track selected location and dropdown visibility
+  const [selectedLocation, setSelectedLocation] = useState('Karnataka');
+  const [isLocationOpen, setIsLocationOpen] = useState(false);
+  const locationRef = useRef(null);
+
+  const indiaLocations = [
+    'Andhra Pradesh',
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chhattisgarh',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland',
+    'Odisha',
+    'Punjab',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal',
+    'Andaman and Nicobar Islands',
+    'Chandigarh',
+    'Dadra and Nagar Haveli and Daman and Diu',
+    'Delhi',
+    'Jammu and Kashmir',
+    'Ladakh',
+    'Lakshadweep',
+    'Puducherry'
+  ].sort((a, b) => a.localeCompare(b));
 
   // Update navbar appearance when user scrolls down
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close location dropdown when clicking outside
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (locationRef.current && !locationRef.current.contains(event.target)) {
+        setIsLocationOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
   return (
@@ -48,6 +103,61 @@ export default function PerfectTicketDashboard() {
           background: #D44D26;
           transform: translateY(-2px);
           box-shadow: 0 10px 20px rgba(232, 93, 51, 0.2);
+        }
+
+        /* Dashboard-matched CTA and location chip styling */
+        .btn-sign {
+          background: #231A16;
+          color: #F7F4EF;
+          border: 1px solid transparent;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-sign:hover {
+          background: #3A322F;
+          transform: translateY(-2px);
+          box-shadow: 0 10px 20px rgba(35, 26, 22, 0.2);
+        }
+
+        .btn-location {
+          color: #3A322F;
+          background: #EFE9DF;
+          border: 1px solid #D8CFC2;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-location:hover {
+          color: #231A16;
+          background: #E7DECF;
+          border-color: #C9B9A2;
+          transform: translateY(-1px);
+        }
+
+        .location-menu {
+          background: #fff;
+          border: 1px solid #E5E1DA;
+          box-shadow: 0 16px 36px rgba(35, 26, 22, 0.12);
+          transform-origin: top right;
+          animation: dropdownIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes dropdownIn {
+          from {
+            opacity: 0;
+            transform: translateY(-8px) scale(0.98);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        .location-option {
+          transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .location-option:hover {
+          transform: translateX(3px);
         }
 
         /* Card styling with shadow and border transition */
@@ -118,10 +228,41 @@ export default function PerfectTicketDashboard() {
 
           {/* Right side: Location and Sign In button */}
           <div className="flex items-center gap-6 md:gap-8">
-            {/* Location selector with hover effect */}
-            <button className="hidden sm:block text-sm font-medium text-[#231A16] hover:text-[#E85D33] transition-colors border-b-2 border-[#E85D33]">Mysuru, IN</button>
+            {/* Location selector with full India states and UTs */}
+            <div ref={locationRef} className="hidden sm:block relative">
+              <button
+                onClick={() => setIsLocationOpen((prev) => !prev)}
+                className="text-base font-semibold px-6 py-3.5 rounded-full btn-location min-w-64 text-left"
+                aria-haspopup="listbox"
+                aria-expanded={isLocationOpen}
+              >
+                {selectedLocation}, IN
+              </button>
+              {isLocationOpen && (
+                <div className="location-menu absolute right-0 mt-3 w-80 max-h-80 overflow-y-auto rounded-2xl p-2 z-50">
+                  {indiaLocations.map((state) => (
+                    <button
+                      key={state}
+                      onClick={() => {
+                        setSelectedLocation(state);
+                        setIsLocationOpen(false);
+                      }}
+                      className={`location-option w-full text-left px-4 py-3 rounded-xl text-base font-medium ${
+                        selectedLocation === state
+                          ? 'bg-[#231A16] text-white'
+                          : 'text-[#3A322F] hover:bg-[#F3EEE6]'
+                      }`}
+                      role="option"
+                      aria-selected={selectedLocation === state}
+                    >
+                      {state}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             {/* Sign In CTA button with hover animation */}
-            <button className="btn-orange px-6 md:px-8 py-2.5 rounded-full text-sm font-bold">Sign In</button>
+            <button className="btn-sign px-8 md:px-11 py-3.5 rounded-full text-base font-bold">Sign In</button>
           </div>
         </div>
       </nav>
@@ -160,7 +301,7 @@ export default function PerfectTicketDashboard() {
           </div>
 
           {/* Right column: Featured image section (hidden on mobile) */}
-          <div className="relative hidden lg:block">
+          <div className="relative hidden lg:block lg:mt-12">
             {/* Featured card with gradient overlay */}
             <div className="aspect-[4/3] rounded-[40px] overflow-hidden bg-[#231A16] shadow-2xl relative group">
                 {/* Dark gradient overlay at bottom of image */}
