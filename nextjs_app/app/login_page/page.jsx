@@ -15,7 +15,7 @@ export default function LoginPage() {
     setTimeout(() => {
       setIsRotating(false);
       router.push("/dashboard");
-    }, 1500);
+    }, 2500);
   };
 
   const handleRegister = () => {
